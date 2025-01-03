@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15  # PostgreSQL image
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: dany  # Set the username
+      POSTGRES_PASSWORD: 123  # Set the password
+      POSTGRES_DB: javaRegistry  # Set the default database
+    ports:
+      - "5432:5432"  # Expose PostgreSQL on port 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persist data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest  # PGAdmin image
+    container_name: pgadmin_container
+    environment:
+      PGADMIN_DEFAULT_EMAIL: noelialiu2326@gmail.com  # Default login email
+      PGADMIN_DEFAULT_PASSWORD: admin  # Default login password
+    ports:
+      - "9090:80"  # Expose PGAdmin on port 8080
+    depends_on:
+      - postgres  # Ensure PostgreSQL starts first
+
+volumes:
+  postgres_data:  # Named volume for PostgreSQL data persistence
+ 
